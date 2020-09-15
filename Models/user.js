@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-const uuidv1 = require('uuid/v1');
+const uuid = require('uuid');
 
-const userSchema = new Mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name:{
         type: String,
         trim: true,
@@ -42,7 +42,7 @@ const userSchema = new Mongoose.Schema({
 userSchema.virtual('password')
 .set(function(password) {
 this._password = password;
-this.salt = uuidv1()
+this.salt = uuid.v1()
 this.hashed_password = this.encryptedPassword(password)
 })
 .get(function(){
@@ -62,4 +62,4 @@ userSchema.methods = {
     }
 }
 
-module.exports = mongoose.model("User","userSchema");
+module.exports = mongoose.model("User",userSchema);

@@ -1,11 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./Routes/user');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 
-// App
-const app = express();
 
 // DB
 mongoose.connect(process.env.DATABASE,{
@@ -16,6 +17,14 @@ mongoose.connect(process.env.DATABASE,{
 .then(()=>{console.log('DB connection established!')})
 .catch(err=>{console.log(err)});
 
+// App
+const app = express();
+
+
+// Middleware
+app.use(morgan('dev')); // logs out the requested route 
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Routes Middleware
 app.use(userRoutes);
