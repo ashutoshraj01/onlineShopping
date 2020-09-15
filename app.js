@@ -4,6 +4,7 @@ const userRoutes = require('./Routes/user');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const expressValidator = require('express-validator');  
 require('dotenv').config();
 
 
@@ -20,11 +21,13 @@ mongoose.connect(process.env.DATABASE,{
 // App
 const app = express();
 
-
+ 
 // Middleware
 app.use(morgan('dev')); // logs out the requested route 
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(expressValidator());
+
 
 // Routes Middleware
 app.use(userRoutes);
