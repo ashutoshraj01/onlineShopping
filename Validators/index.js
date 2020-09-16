@@ -13,7 +13,7 @@ exports.userSignupValidator = (req,res, next) => {
    .isLength({
        min:6,
    })
-   .withMessage('Password must be at least of 6 characters long');
+   .withMessage('Password must be at least  6 characters long');
   
    const errors = req.validationErrors();
    if(errors){
