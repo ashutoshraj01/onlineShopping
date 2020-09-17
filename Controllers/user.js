@@ -26,11 +26,26 @@ exports.signIn = (req, res) => {
         // user not found
         if(err  || !user){
             return res.status(400).json({
-                err:'User with email doesn\'t exist. Please signup!'
+                error:'User with this email doesn\'t exist. Please signup!'
             })
         }
         // user found
         // make sure email and password are matched!
-        
+          if(!user.authenticate(password)){
+              return res.status(401).json({
+                  error: "Email and password doesn't match!" 
+              })
+          }         
+
+        // generate a signed token with user id and secret
+            const token = jwt.sign({_id:user._id}, process.env.JWT_SECRET);
+            res.cookie('TOKEN', token, {expire: new Date() + 9999 })
+            const { _id, name, email, role } = user;
+            return res.json({token, user: {_id,name,email,role}})
     });
+}
+
+
+exports.signOut = (req, res) => {
+    
 }
