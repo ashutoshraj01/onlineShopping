@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./Routes/auth');
+const userRoutes = require('./Routes/user');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -31,6 +32,7 @@ app.use(expressValidator());
 
 // Routes Middleware
 app.use(authRoutes);
+app.use(userRoutes);
  
 
 const port = process.env.PORT || 8000;
