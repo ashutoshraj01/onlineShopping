@@ -1,5 +1,5 @@
 const Category = require('../Models/category');
-const { errorHandler } = require('../Helpers/dbErrorHandler');
+// const { errorHandler } = require('../Helpers/dbErrorHandler');
 
 
 exports.createCategory = (req,res) => {
@@ -7,7 +7,7 @@ exports.createCategory = (req,res) => {
      category.save((err,data) => {
          if(err){
              return res.status(400).json({
-                 error: errorHandler(err)
+                 error: 'Failed to save category!' // errorHandler(err) not working!
              })
          }
          res.json({data});
