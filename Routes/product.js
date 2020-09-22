@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { createCategory } = require("../Controllers/category");
+const { createProduct } = require("../Controllers/product");
 const { requireSignin, isAuth, isAdmin } = require("../Controllers/auth");
 const { findUserById } = require("../Controllers/user");
 
-router.post("/category/create/:userId", requireSignin, isAuth, isAdmin, createCategory);
+router.post("/product/create/:userId", requireSignin, isAuth, isAdmin, createProduct);
 
 router.param('userId',findUserById) 
 
