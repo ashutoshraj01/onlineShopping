@@ -1,5 +1,5 @@
-const formidable = require("formiddable");
-const _ = require("loadash");
+const formidable = require("formidable");
+const _ = require("lodash");
 const fs = require("fs");
 const Product = require('../Models/product');
 const { errorHandler } = require('../Helpers/dbErrorHandler');
