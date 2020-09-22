@@ -17,9 +17,27 @@ exports.findProductById = (req, res, next, id) =>{
    })
 }
 
+
 exports.readAndModifyProduct = (req, res) => {
     req.product.photo = undefined;
     return res.json(req.product);
+}
+
+
+//Delete a product
+exports.deleteProduct = (req, res) => {
+  let product = req.product;
+  product.remove((err, deletedProduct) => {
+       if(err){
+           return res.status(400).json({
+               errors:errorHandler(err)
+           })
+       }
+
+       return res.json({
+           message:'Product deleted successfully!'
+       })
+  });
 }
 
 // storing new product
