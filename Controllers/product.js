@@ -122,3 +122,30 @@ exports.createProduct = (req, res) => {
        })
   })
 }
+
+// Mostly sold product
+// by sell = /products?sortBy=sold&order=desc&limit=4
+// Latest Arrivals
+// by arrival = = /products?sortBy=createdAt&order=desc&limit=4
+// If no params are sent, then all products returned
+
+exports.listAllProducts = (req,res) => {
+    let order = req.query.order ? req.query.order : 'asc';
+    let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+    let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+    Product.find()
+    .select("-photo")   // removing photo from this call, so that we can have seperate call for photo(saves time)
+    .populate('category')
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((err, productList) => {
+        if(err){
+            return res.status(400).json({
+                error: 'Product not found!'
+            })
+        }
+
+        res.send(productList);
+    })
+}
