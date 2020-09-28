@@ -149,3 +149,26 @@ exports.listAllProducts = (req,res) => {
         res.send(productList);
     })
 }
+
+
+exports.findRelatedProducts = (req, res) => {
+    let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+    Product.find(
+       {
+        _id: {$ne: req.product}, 
+        category: req.product.category
+       }
+        )  // ne = not included
+      .limit(limit)
+      .select("-photo")
+      .populate('category', '_id name')
+      .exec((err, products) => {
+          if(err){
+              return res.status(400).json({
+                  error:'Product not found!'
+              })
+          }
+          res.send(products);
+      })
+    }
