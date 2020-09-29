@@ -9,7 +9,8 @@ const {
      listAllProducts,
      findRelatedProducts,
      listCategories,
-     findProductsBySearch
+     findProductsBySearch,
+     findProductPhoto
     } = require("../Controllers/product");
 const { requireSignin, isAuth, isAdmin } = require("../Controllers/auth");
 const { findUserById } = require("../Controllers/user");
@@ -22,6 +23,7 @@ router.get('/products', listAllProducts);
 router.get('/products/related/:productId', findRelatedProducts)
 router.get('/products/categories', listCategories);
 router.post("/products/by/search", findProductsBySearch);
+router.get('/products/photo/:productId', findProductPhoto);
 
 router.param('userId',findUserById)
 router.param('productId',findProductById) 
